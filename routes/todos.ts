@@ -16,14 +16,15 @@ router.post('/todo', (req, res, next) => {
         text: req.body.text
     }
     todos.push(newTodo);
-    res.status(201).json({message: "todo added"});
+    res.status(201).json({message: "todo added", todos: todos});
 })
 
 router.put('/todo/:todoId', (req, res, next) => {
     const tid = req.params.todoId;
+    console.log(tid)
     const todoIndex = todos.findIndex((todoItem) => todoItem.id === tid)
 
-    if(todoIndex){
+    if(todoIndex >= 0){
         todos[todoIndex] = {id: todos[todoIndex].id, text: req.body.text}
         return res.status(200).json({message: 'todo updated', todos: todos})
     }
